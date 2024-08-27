@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 public class ValueController
 {
@@ -30,6 +32,9 @@ public class ValueController
 
 	@Value("#{${colors_map}.key1}")
 	private String colors_map_index;
+
+	@Value("#{systemProperties}")
+	private Map<String, String> systemPropertiesMap;
 
 	@GetMapping("/name")
 	public String appName() {
@@ -73,5 +78,10 @@ public class ValueController
 		return colors_map_index;
 	}
 
+	@GetMapping("/systemPropertiesMap")
+	public String getSystemPropertiesMap() {
+		System.out.println(systemPropertiesMap);
+		return systemPropertiesMap.toString();
+	}
 
 }
