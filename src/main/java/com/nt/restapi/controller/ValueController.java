@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -35,6 +36,9 @@ public class ValueController
 
 	@Value("#{systemProperties}")
 	private Map<String, String> systemPropertiesMap;
+
+	@Value("#{'${app.users}'.split(',')}")
+	private List<String> appUsers;
 
 	@GetMapping("/name")
 	public String appName() {
@@ -84,4 +88,9 @@ public class ValueController
 		return systemPropertiesMap.toString();
 	}
 
+	@GetMapping("/appUsers")
+	public String getAppUsers() {
+		System.out.println(appUsers);
+		return appUsers.toString();
+	}
 }
